@@ -178,11 +178,3 @@ curl --header "X-API-Token: yourToken" "https://rudder.example.com/rudder/api/la
 ----
 
 See the https://docs.rudder.io/api/#tag/System/operation/getHealthcheckResult[API documentation] for details.
-
-== Systemd Service Hardening
-
-The `rudder-jetty` service uses the following systemd hardening options in its service file:
-
-* `PrivateTmp=true`: gives the service its own private `/tmp` and `/var/tmp` directories, which are not shared with other services
-* `ProtectSystem=strict`: makes the system filesystem read-only for the service, except for paths explicitly allowed by ReadWritePaths
-* `ReadWritePaths=/opt/rudder /var/rudder /var/log /etc/cron.d /etc/systemd/system`: specifies the directories that the service is allowed to write to
