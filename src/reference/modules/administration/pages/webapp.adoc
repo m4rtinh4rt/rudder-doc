@@ -1,7 +1,8 @@
 = Webapp administration
 
 The `rudder-jetty` service, usually called the Rudder webapp, is part of the `rudder-server` package
-and runs on Rudder servers only. It provides the Web interface of Rudder, its HTTP API,
+and runs on Rudder servers only. It runs as the `rudder-webapp` user
+and provides the Web interface of Rudder, its HTTP API,
 computes the policies to apply and handles reports and inventories from nodes
 (but does not communicate directly with them, but only through relay
 services, namely `apache2/httpd`, `rudder-relay` and `rudder-cf-serverd`).
@@ -177,3 +178,11 @@ curl --header "X-API-Token: yourToken" "https://rudder.example.com/rudder/api/la
 ----
 
 See the https://docs.rudder.io/api/#tag/System/operation/getHealthcheckResult[API documentation] for details.
+
+== Systemd Service Hardening
+
+The rudder-jetty service uses the following systemd hardening options in its service file:
+
+* `PrivateTmp=true`: gives the service its own private `/tmp` and `/var/tmp` directories, which are not shared with other services
+* `ProtectSystem=strict`: makes the system filesystem read-only for the service, except for paths explicitly allowed by ReadWritePaths
+* `ReadWritePaths=/opt/rudder /var/rudder /var/log /etc/cron.d /etc/systemd/system`: specifies the directories that the service is allowed to write to
