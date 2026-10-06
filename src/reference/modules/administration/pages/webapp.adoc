@@ -181,7 +181,7 @@ See the https://docs.rudder.io/api/#tag/System/operation/getHealthcheckResult[AP
 
 == Systemd Service Hardening
 
-The rudder-jetty service uses the following systemd hardening options in its service file:
+The `rudder-jetty` service uses the following systemd hardening options in its service file:
 
 * `PrivateTmp=true`: gives the service its own private `/tmp` and `/var/tmp` directories, which are not shared with other services
 * `ProtectSystem=strict`: makes the system filesystem read-only for the service, except for paths explicitly allowed by ReadWritePaths
